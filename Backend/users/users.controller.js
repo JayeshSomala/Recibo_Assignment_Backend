@@ -61,7 +61,7 @@ function updateSchema(req, res, next) {
     const schema = Joi.object({
         Name: Joi.string().empty(''),
         Manager: Joi.string().empty(''),
-        Phone: Joi.number().empty(''),
+        Phone: Joi.number().min(6).empty(''),
     });
     validateRequest(req, next, schema);
 }
