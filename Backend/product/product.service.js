@@ -38,11 +38,6 @@ async function update(id, params) {
         throw 'product "' + params.Name + '" already exists';
     }
 
-    // hash password if it was entered
-    // if (params.password) {
-    //     params.passwordHash = await bcrypt.hash(params.password, 10);
-    // }
-
     // copy params to product and save
     Object.assign(product, params);
     await product.save();

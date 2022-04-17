@@ -38,11 +38,6 @@ async function update(id, params) {
         throw 'outlet "' + params.Name + '" already exists';
     }
 
-    // hash password if it was entered
-    // if (params.password) {
-    //     params.passwordHash = await bcrypt.hash(params.password, 10);
-    // }
-
     // copy params to outlet and save
     Object.assign(outlet, params);
     await outlet.save();

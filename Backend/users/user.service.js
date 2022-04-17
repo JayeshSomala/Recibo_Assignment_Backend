@@ -1,5 +1,4 @@
-﻿const bcrypt = require('bcryptjs');
-const db = require('../_helpers/db');
+﻿const db = require('../_helpers/db');
 
 module.exports = {
     getAll,
@@ -19,15 +18,12 @@ async function getById(id) {
 
 async function create(params) {
     // validate
-    if (await db.User.findOne({ where: { email: params.email } })) {
-        throw 'email "' + params.email + '" is already registered';
+    if (await db.User.findOne({ where: { Name: params.Name } })) {
+        throw 'User "' + params.Name + '" is already registered';
     }
 
     const user = new db.User(params);
     
-    // hash password
-    user.passwordHash = await bcrypt.hash(params.password, 10);
-
     // save user
     await user.save();
 }
@@ -36,14 +32,9 @@ async function update(id, params) {
     const user = await getUser(id);
 
     // validate
-    const emailChanged = params.email && user.email !== params.email;
-    if (emailChanged && await db.User.findOne({ where: { email: params.email } })) {
-        throw 'email "' + params.email + '" is already registered';
-    }
-
-    // hash password if it was entered
-    if (params.password) {
-        params.passwordHash = await bcrypt.hash(params.password, 10);
+    const NameChanged = params.Name && user.Name !== params.Name;
+    if (NameChanged && await db.User.findOne({ where: { Name: params.Name } })) {
+        throw 'User "' + params.Name + '" is already registered';
     }
 
     // copy params to user and save
